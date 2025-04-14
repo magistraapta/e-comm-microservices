@@ -6,3 +6,9 @@ type User struct {
 	Email    string `json:"email" gorm:"unique"`
 	Password string `json:"password"`
 }
+
+type Admin struct {
+	Id       int64 `gorm:"primaryKey"`
+	Username string
+	Password string
+}

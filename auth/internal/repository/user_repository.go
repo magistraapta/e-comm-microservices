@@ -50,3 +50,38 @@ func (r *UserRepository) Register(ctx context.Context, user *model.User) (*model
 
 	return &newUser, nil
 }
+
+func (r *UserRepository) UserLogin(ctx context.Context, email string) (*model.User, error) {
+	var user model.User
+	err := r.DB.WithContext(ctx).Where("email = ?", email).First(&user).Error
+
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errors.New("user not found")
+		}
+		return nil, err
+	}
+
+	return &user, nil
+}
+
+func (r *UserRepository) RegisterAdmin(ctx context.Context, admin *model.Admin) (*model.Admin, error) {
+	hashedPassword, err := utils.HashPassword(admin.Password)
+
+	if err != nil {
+		return nil, err
+	}
+
+	newAdmin := model.Admin{
+		Username: admin.Username,
+		Password: hashedPassword,
+	}
+
+	result := r.DB.WithContext(ctx).Create(&newAdmin)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return &newAdmin, nil
+}
