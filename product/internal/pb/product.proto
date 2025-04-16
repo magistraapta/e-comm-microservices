@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package product;
+
+option go_package = "./internal/pb";
+
+service ProductService {
+    rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse);
+    rpc FindOne(FindOneRequest) returns (FindOneResponse);
+    rpc FindAll(FindAllRequest) returns (FindAllResponse);
+    rpc DecreaseStock(DecreaseStockRequest) returns (DecreaseStockResponse);
+}
+
+message CreateProductRequest {
+    string name = 1;
+    int64 price = 2;
+    int64 stock = 3;
+}
+
+message CreateProductResponse {
+    int64 status = 1;
+    string error = 2;
+    int64 id = 3;
+}
+
+message FindOneData {
+    int64 id = 1;
+    string name = 2;
+    int64 price = 3;
+    int64 stock = 4;
+}
+
+message FindOneRequest {
+    int64 id = 1;
+}
+
+message FindOneResponse {
+    int64 status = 1;
+    string error = 2;
+    FindOneData data = 3;
+}
+
+message FindAllRequest {}
+
+message FindAllResponse {
+    int64 status = 1;
+    string error = 2;
+    repeated FindOneData products = 3;
+}
+
+message DecreaseStockRequest {
+    int64 id = 1;
+    int64 orderID = 2;
+}
+
+message DecreaseStockResponse {
+    int64 status = 1;
+    string error = 2;
+}
+
+
+
