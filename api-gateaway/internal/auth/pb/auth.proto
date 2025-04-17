@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "./internal/auth/pb";
+
+service AuthService {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc AdminRegister(AdminRegisterRequest) returns (RegisterResponse);
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc AdminLogin(AdminLoginRequest) returns (LoginResponse);
+  rpc Validate(ValidateRequest) returns (ValidateResponse);
+}
+
+message RegisterRequest {
+    string username = 1;
+    string email = 2;
+    string password = 3;
+}
+
+message RegisterResponse {
+    int64 id = 1;
+    int64 status = 2;
+    string error = 3;
+}
+
+message AdminRegisterRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message AdminRegisterResponse {
+    string username = 1;
+    string password = 2;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message AdminLoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+  int64 status = 2;
+  string error = 3;
+}
+
+message ValidateRequest {
+  string token = 1;
+}
+
+message ValidateResponse {
+  int64 status = 1;
+  string error = 2;
+  int64 userID = 3;
+}

@@ -3,5 +3,5 @@ proto:
 	protoc --go_out=. --go-grpc_out=. ./internal/product/pb/product.proto
 
 
-run-server:
+server:
 	go run cmd/main.go
