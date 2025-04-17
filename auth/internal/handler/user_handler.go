@@ -19,13 +19,13 @@ func NewUserHanlder(service *service.UserService) *AuthHandler {
 }
 
 func (h *AuthHandler) Register(ctx context.Context, req *pb.RegisterRequest) (*pb.RegisterResponse, error) {
-	user := &model.User{
-		Username: req.Username,
-		Email:    req.Email,
-		Password: req.Password,
-	}
+	var user model.User
 
-	res, err := h.service.Register(ctx, user)
+	user.Username = req.Username
+	user.Email = req.Email
+	user.Password = req.Password
+
+	res, err := h.service.Register(ctx, &user)
 
 	if err != nil {
 		return &pb.RegisterResponse{
@@ -39,30 +39,35 @@ func (h *AuthHandler) Register(ctx context.Context, req *pb.RegisterRequest) (*p
 	}, nil
 }
 
-func (h *AuthHandler) Login(ctx context.Context, req *pb.LoginRequest) (*pb.AuthResponse, error) {
-	user := &model.User{
-		Email:    req.Email,
-		Password: req.Password,
-	}
+func (h *AuthHandler) Login(ctx context.Context, req *pb.LoginRequest) (*pb.LoginResponse, error) {
 
-	res, err := h.service.Login(ctx, user.Email, user.Password)
+	res, err := h.service.Login(ctx, req.Email, req.Password)
 
 	if err != nil {
-		return &pb.AuthResponse{
+		return &pb.LoginResponse{
 			Status: http.StatusNotFound,
 			Error:  "user not found",
 		}, nil
 	}
 
-	token, _ := utils.GenerateToken(res.Id)
+	matchPassword := utils.CheckHashPassword(req.Password, res.Password)
 
-	return &pb.AuthResponse{
+	if !matchPassword {
+		return &pb.LoginResponse{
+			Status: http.StatusBadGateway,
+			Error:  "Invalid email or password",
+		}, nil
+	}
+
+	token, _ := utils.GenerateToken(res)
+
+	return &pb.LoginResponse{
 		Status: http.StatusOK,
 		Token:  token,
 	}, nil
 }
 
-func (h *AuthHandler) AdminRegister(ctx context.Context, req *pb.AdminRegisterResponse) (*pb.RegisterResponse, error) {
+func (h *AuthHandler) AdminRegister(ctx context.Context, req *pb.AdminRegisterRequest) (*pb.RegisterResponse, error) {
 	admin := &model.Admin{
 		Username: req.Username,
 		Password: req.Password,
@@ -79,5 +84,55 @@ func (h *AuthHandler) AdminRegister(ctx context.Context, req *pb.AdminRegisterRe
 	return &pb.RegisterResponse{
 		Status: http.StatusCreated,
 		Id:     res.Id,
+	}, nil
+}
+
+func (h *AuthHandler) AdminLogin(ctx context.Context, req *pb.AdminLoginRequest) (*pb.LoginResponse, error) {
+	res, err := h.service.AdminLogin(ctx, req.Username)
+
+	if err != nil {
+		return &pb.LoginResponse{
+			Status: http.StatusBadRequest,
+			Error:  err.Error(),
+		}, nil
+	}
+
+	isPasswordMatch := utils.CheckHashPassword(req.Password, res.Password)
+
+	if !isPasswordMatch {
+		return &pb.LoginResponse{
+			Status: http.StatusBadGateway,
+			Error:  "Invalid email or password",
+		}, nil
+	}
+
+	token, err := utils.GenerateAdminToken(res)
+
+	if err != nil {
+		return &pb.LoginResponse{
+			Status: http.StatusBadGateway,
+			Error:  err.Error(),
+		}, nil
+	}
+
+	return &pb.LoginResponse{
+		Status: http.StatusOK,
+		Token:  token,
+	}, nil
+}
+
+func (h *AuthHandler) ValidateUser(ctx context.Context, req *pb.ValidateRequest) (*pb.ValidateResponse, error) {
+	claims, err := utils.Validate(req.Token)
+
+	if err != nil {
+		return &pb.ValidateResponse{
+			Status: http.StatusBadRequest,
+			Error:  err.Error(),
+		}, nil
+	}
+
+	return &pb.ValidateResponse{
+		Status: http.StatusOK,
+		UserID: claims.Id,
 	}, nil
 }

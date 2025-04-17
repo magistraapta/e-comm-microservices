@@ -23,10 +23,12 @@ func (r *UserRepository) Register(ctx context.Context, user *model.User) (*model
 	var existingUser model.User
 
 	result := r.DB.WithContext(ctx).Where("email = ?", user.Email).First(&existingUser)
-	if result.Error != nil {
+
+	if result.Error == nil {
 		return nil, errors.New("User already exist")
 	}
-	if result.Error != nil && result.Error != gorm.ErrRecordNotFound {
+
+	if result.Error != nil && !errors.Is(result.Error, gorm.ErrRecordNotFound) {
 		return nil, result.Error
 	}
 
@@ -63,6 +65,20 @@ func (r *UserRepository) UserLogin(ctx context.Context, email string) (*model.Us
 	}
 
 	return &user, nil
+}
+
+func (r *UserRepository) AdminLogin(ctx context.Context, username string) (*model.Admin, error) {
+	var admin model.Admin
+	err := r.DB.WithContext(ctx).Where("username = ?", username).First(&admin).Error
+
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errors.New("user not found")
+		}
+		return nil, err
+	}
+
+	return &admin, nil
 }
 
 func (r *UserRepository) RegisterAdmin(ctx context.Context, admin *model.Admin) (*model.Admin, error) {

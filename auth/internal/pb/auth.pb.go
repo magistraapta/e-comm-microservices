@@ -141,6 +141,58 @@ func (x *RegisterResponse) GetError() string {
 	return ""
 }
 
+type AdminRegisterRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AdminRegisterRequest) Reset() {
+	*x = AdminRegisterRequest{}
+	mi := &file_internal_pb_auth_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AdminRegisterRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AdminRegisterRequest) ProtoMessage() {}
+
+func (x *AdminRegisterRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_internal_pb_auth_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AdminRegisterRequest.ProtoReflect.Descriptor instead.
+func (*AdminRegisterRequest) Descriptor() ([]byte, []int) {
+	return file_internal_pb_auth_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *AdminRegisterRequest) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+func (x *AdminRegisterRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
 type AdminRegisterResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
@@ -151,7 +203,7 @@ type AdminRegisterResponse struct {
 
 func (x *AdminRegisterResponse) Reset() {
 	*x = AdminRegisterResponse{}
-	mi := &file_internal_pb_auth_proto_msgTypes[2]
+	mi := &file_internal_pb_auth_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -163,7 +215,7 @@ func (x *AdminRegisterResponse) String() string {
 func (*AdminRegisterResponse) ProtoMessage() {}
 
 func (x *AdminRegisterResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_auth_proto_msgTypes[2]
+	mi := &file_internal_pb_auth_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -176,7 +228,7 @@ func (x *AdminRegisterResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AdminRegisterResponse.ProtoReflect.Descriptor instead.
 func (*AdminRegisterResponse) Descriptor() ([]byte, []int) {
-	return file_internal_pb_auth_proto_rawDescGZIP(), []int{2}
+	return file_internal_pb_auth_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *AdminRegisterResponse) GetUsername() string {
@@ -203,7 +255,7 @@ type LoginRequest struct {
 
 func (x *LoginRequest) Reset() {
 	*x = LoginRequest{}
-	mi := &file_internal_pb_auth_proto_msgTypes[3]
+	mi := &file_internal_pb_auth_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -215,7 +267,7 @@ func (x *LoginRequest) String() string {
 func (*LoginRequest) ProtoMessage() {}
 
 func (x *LoginRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_auth_proto_msgTypes[3]
+	mi := &file_internal_pb_auth_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -228,7 +280,7 @@ func (x *LoginRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginRequest.ProtoReflect.Descriptor instead.
 func (*LoginRequest) Descriptor() ([]byte, []int) {
-	return file_internal_pb_auth_proto_rawDescGZIP(), []int{3}
+	return file_internal_pb_auth_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *LoginRequest) GetEmail() string {
@@ -245,30 +297,29 @@ func (x *LoginRequest) GetPassword() string {
 	return ""
 }
 
-type AuthResponse struct {
+type AdminLoginRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
-	Status        int64                  `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`
-	Error         string                 `protobuf:"bytes,3,opt,name=error,proto3" json:"error,omitempty"`
+	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *AuthResponse) Reset() {
-	*x = AuthResponse{}
-	mi := &file_internal_pb_auth_proto_msgTypes[4]
+func (x *AdminLoginRequest) Reset() {
+	*x = AdminLoginRequest{}
+	mi := &file_internal_pb_auth_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *AuthResponse) String() string {
+func (x *AdminLoginRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AuthResponse) ProtoMessage() {}
+func (*AdminLoginRequest) ProtoMessage() {}
 
-func (x *AuthResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_auth_proto_msgTypes[4]
+func (x *AdminLoginRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_internal_pb_auth_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -279,26 +330,79 @@ func (x *AuthResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AuthResponse.ProtoReflect.Descriptor instead.
-func (*AuthResponse) Descriptor() ([]byte, []int) {
-	return file_internal_pb_auth_proto_rawDescGZIP(), []int{4}
+// Deprecated: Use AdminLoginRequest.ProtoReflect.Descriptor instead.
+func (*AdminLoginRequest) Descriptor() ([]byte, []int) {
+	return file_internal_pb_auth_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *AuthResponse) GetToken() string {
+func (x *AdminLoginRequest) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+func (x *AdminLoginRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+type LoginResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Status        int64                  `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`
+	Error         string                 `protobuf:"bytes,3,opt,name=error,proto3" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoginResponse) Reset() {
+	*x = LoginResponse{}
+	mi := &file_internal_pb_auth_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoginResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoginResponse) ProtoMessage() {}
+
+func (x *LoginResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_internal_pb_auth_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoginResponse.ProtoReflect.Descriptor instead.
+func (*LoginResponse) Descriptor() ([]byte, []int) {
+	return file_internal_pb_auth_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *LoginResponse) GetToken() string {
 	if x != nil {
 		return x.Token
 	}
 	return ""
 }
 
-func (x *AuthResponse) GetStatus() int64 {
+func (x *LoginResponse) GetStatus() int64 {
 	if x != nil {
 		return x.Status
 	}
 	return 0
 }
 
-func (x *AuthResponse) GetError() string {
+func (x *LoginResponse) GetError() string {
 	if x != nil {
 		return x.Error
 	}
@@ -314,7 +418,7 @@ type ValidateRequest struct {
 
 func (x *ValidateRequest) Reset() {
 	*x = ValidateRequest{}
-	mi := &file_internal_pb_auth_proto_msgTypes[5]
+	mi := &file_internal_pb_auth_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -326,7 +430,7 @@ func (x *ValidateRequest) String() string {
 func (*ValidateRequest) ProtoMessage() {}
 
 func (x *ValidateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_auth_proto_msgTypes[5]
+	mi := &file_internal_pb_auth_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -339,7 +443,7 @@ func (x *ValidateRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ValidateRequest.ProtoReflect.Descriptor instead.
 func (*ValidateRequest) Descriptor() ([]byte, []int) {
-	return file_internal_pb_auth_proto_rawDescGZIP(), []int{5}
+	return file_internal_pb_auth_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *ValidateRequest) GetToken() string {
@@ -351,16 +455,16 @@ func (x *ValidateRequest) GetToken() string {
 
 type ValidateResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
-	IsValid       bool                   `protobuf:"varint,3,opt,name=is_valid,json=isValid,proto3" json:"is_valid,omitempty"`
+	Status        int64                  `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	Error         string                 `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
+	UserID        int64                  `protobuf:"varint,3,opt,name=userID,proto3" json:"userID,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ValidateResponse) Reset() {
 	*x = ValidateResponse{}
-	mi := &file_internal_pb_auth_proto_msgTypes[6]
+	mi := &file_internal_pb_auth_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -372,7 +476,7 @@ func (x *ValidateResponse) String() string {
 func (*ValidateResponse) ProtoMessage() {}
 
 func (x *ValidateResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_auth_proto_msgTypes[6]
+	mi := &file_internal_pb_auth_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -385,28 +489,28 @@ func (x *ValidateResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ValidateResponse.ProtoReflect.Descriptor instead.
 func (*ValidateResponse) Descriptor() ([]byte, []int) {
-	return file_internal_pb_auth_proto_rawDescGZIP(), []int{6}
+	return file_internal_pb_auth_proto_rawDescGZIP(), []int{8}
 }
 
-func (x *ValidateResponse) GetUserId() string {
+func (x *ValidateResponse) GetStatus() int64 {
 	if x != nil {
-		return x.UserId
+		return x.Status
+	}
+	return 0
+}
+
+func (x *ValidateResponse) GetError() string {
+	if x != nil {
+		return x.Error
 	}
 	return ""
 }
 
-func (x *ValidateResponse) GetEmail() string {
+func (x *ValidateResponse) GetUserID() int64 {
 	if x != nil {
-		return x.Email
+		return x.UserID
 	}
-	return ""
-}
-
-func (x *ValidateResponse) GetIsValid() bool {
-	if x != nil {
-		return x.IsValid
-	}
-	return false
+	return 0
 }
 
 var File_internal_pb_auth_proto protoreflect.FileDescriptor
@@ -421,26 +525,35 @@ const file_internal_pb_auth_proto_rawDesc = "" +
 	"\x10RegisterResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x16\n" +
 	"\x06status\x18\x02 \x01(\x03R\x06status\x12\x14\n" +
-	"\x05error\x18\x03 \x01(\tR\x05error\"O\n" +
+	"\x05error\x18\x03 \x01(\tR\x05error\"N\n" +
+	"\x14AdminRegisterRequest\x12\x1a\n" +
+	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"O\n" +
 	"\x15AdminRegisterResponse\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"@\n" +
 	"\fLoginRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"R\n" +
-	"\fAuthResponse\x12\x14\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"K\n" +
+	"\x11AdminLoginRequest\x12\x1a\n" +
+	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"S\n" +
+	"\rLoginResponse\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12\x16\n" +
 	"\x06status\x18\x02 \x01(\x03R\x06status\x12\x14\n" +
 	"\x05error\x18\x03 \x01(\tR\x05error\"'\n" +
 	"\x0fValidateRequest\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\"\\\n" +
-	"\x10ValidateResponse\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x14\n" +
-	"\x05email\x18\x02 \x01(\tR\x05email\x12\x19\n" +
-	"\bis_valid\x18\x03 \x01(\bR\aisValid2\xb4\x01\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\"X\n" +
+	"\x10ValidateResponse\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\x03R\x06status\x12\x14\n" +
+	"\x05error\x18\x02 \x01(\tR\x05error\x12\x16\n" +
+	"\x06userID\x18\x03 \x01(\x03R\x06userID2\xb6\x02\n" +
 	"\vAuthService\x129\n" +
-	"\bRegister\x12\x15.auth.RegisterRequest\x1a\x16.auth.RegisterResponse\x12/\n" +
-	"\x05Login\x12\x12.auth.LoginRequest\x1a\x12.auth.AuthResponse\x129\n" +
+	"\bRegister\x12\x15.auth.RegisterRequest\x1a\x16.auth.RegisterResponse\x12C\n" +
+	"\rAdminRegister\x12\x1a.auth.AdminRegisterRequest\x1a\x16.auth.RegisterResponse\x120\n" +
+	"\x05Login\x12\x12.auth.LoginRequest\x1a\x13.auth.LoginResponse\x12:\n" +
+	"\n" +
+	"AdminLogin\x12\x17.auth.AdminLoginRequest\x1a\x13.auth.LoginResponse\x129\n" +
 	"\bValidate\x12\x15.auth.ValidateRequest\x1a\x16.auth.ValidateResponseB\x0fZ\r./internal/pbb\x06proto3"
 
 var (
@@ -455,25 +568,31 @@ func file_internal_pb_auth_proto_rawDescGZIP() []byte {
 	return file_internal_pb_auth_proto_rawDescData
 }
 
-var file_internal_pb_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_internal_pb_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_internal_pb_auth_proto_goTypes = []any{
 	(*RegisterRequest)(nil),       // 0: auth.RegisterRequest
 	(*RegisterResponse)(nil),      // 1: auth.RegisterResponse
-	(*AdminRegisterResponse)(nil), // 2: auth.AdminRegisterResponse
-	(*LoginRequest)(nil),          // 3: auth.LoginRequest
-	(*AuthResponse)(nil),          // 4: auth.AuthResponse
-	(*ValidateRequest)(nil),       // 5: auth.ValidateRequest
-	(*ValidateResponse)(nil),      // 6: auth.ValidateResponse
+	(*AdminRegisterRequest)(nil),  // 2: auth.AdminRegisterRequest
+	(*AdminRegisterResponse)(nil), // 3: auth.AdminRegisterResponse
+	(*LoginRequest)(nil),          // 4: auth.LoginRequest
+	(*AdminLoginRequest)(nil),     // 5: auth.AdminLoginRequest
+	(*LoginResponse)(nil),         // 6: auth.LoginResponse
+	(*ValidateRequest)(nil),       // 7: auth.ValidateRequest
+	(*ValidateResponse)(nil),      // 8: auth.ValidateResponse
 }
 var file_internal_pb_auth_proto_depIdxs = []int32{
 	0, // 0: auth.AuthService.Register:input_type -> auth.RegisterRequest
-	3, // 1: auth.AuthService.Login:input_type -> auth.LoginRequest
-	5, // 2: auth.AuthService.Validate:input_type -> auth.ValidateRequest
-	1, // 3: auth.AuthService.Register:output_type -> auth.RegisterResponse
-	4, // 4: auth.AuthService.Login:output_type -> auth.AuthResponse
-	6, // 5: auth.AuthService.Validate:output_type -> auth.ValidateResponse
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
+	2, // 1: auth.AuthService.AdminRegister:input_type -> auth.AdminRegisterRequest
+	4, // 2: auth.AuthService.Login:input_type -> auth.LoginRequest
+	5, // 3: auth.AuthService.AdminLogin:input_type -> auth.AdminLoginRequest
+	7, // 4: auth.AuthService.Validate:input_type -> auth.ValidateRequest
+	1, // 5: auth.AuthService.Register:output_type -> auth.RegisterResponse
+	1, // 6: auth.AuthService.AdminRegister:output_type -> auth.RegisterResponse
+	6, // 7: auth.AuthService.Login:output_type -> auth.LoginResponse
+	6, // 8: auth.AuthService.AdminLogin:output_type -> auth.LoginResponse
+	8, // 9: auth.AuthService.Validate:output_type -> auth.ValidateResponse
+	5, // [5:10] is the sub-list for method output_type
+	0, // [0:5] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -490,7 +609,7 @@ func file_internal_pb_auth_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_internal_pb_auth_proto_rawDesc), len(file_internal_pb_auth_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
