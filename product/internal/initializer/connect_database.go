@@ -18,7 +18,7 @@ func ConnectDatabase() *gorm.DB {
 		log.Fatalln(err)
 	}
 
-	db.AutoMigrate(&model.Product{})
+	db.AutoMigrate(&model.Product{}, &model.StockDecreaseLog{})
 
 	return db
 }

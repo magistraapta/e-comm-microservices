@@ -413,6 +413,7 @@ type DecreaseStockRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	OrderID       int64                  `protobuf:"varint,2,opt,name=orderID,proto3" json:"orderID,omitempty"`
+	Quantity      int64                  `protobuf:"varint,3,opt,name=quantity,proto3" json:"quantity,omitempty"` // <- Add this
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -457,6 +458,13 @@ func (x *DecreaseStockRequest) GetId() int64 {
 func (x *DecreaseStockRequest) GetOrderID() int64 {
 	if x != nil {
 		return x.OrderID
+	}
+	return 0
+}
+
+func (x *DecreaseStockRequest) GetQuantity() int64 {
+	if x != nil {
+		return x.Quantity
 	}
 	return 0
 }
@@ -541,10 +549,11 @@ const file_internal_pb_product_proto_rawDesc = "" +
 	"\x0fFindAllResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\x03R\x06status\x12\x14\n" +
 	"\x05error\x18\x02 \x01(\tR\x05error\x120\n" +
-	"\bproducts\x18\x03 \x03(\v2\x14.product.FindOneDataR\bproducts\"@\n" +
+	"\bproducts\x18\x03 \x03(\v2\x14.product.FindOneDataR\bproducts\"\\\n" +
 	"\x14DecreaseStockRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x18\n" +
-	"\aorderID\x18\x02 \x01(\x03R\aorderID\"E\n" +
+	"\aorderID\x18\x02 \x01(\x03R\aorderID\x12\x1a\n" +
+	"\bquantity\x18\x03 \x01(\x03R\bquantity\"E\n" +
 	"\x15DecreaseStockResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\x03R\x06status\x12\x14\n" +
 	"\x05error\x18\x02 \x01(\tR\x05error2\xac\x02\n" +

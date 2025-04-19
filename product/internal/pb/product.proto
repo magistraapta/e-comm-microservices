@@ -51,6 +51,7 @@ message FindAllResponse {
 message DecreaseStockRequest {
     int64 id = 1;
     int64 orderID = 2;
+    int64 quantity = 3; // <- Add this
 }
 
 message DecreaseStockResponse {

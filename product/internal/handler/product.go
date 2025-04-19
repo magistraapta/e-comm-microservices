@@ -91,3 +91,18 @@ func (h *ProductHandler) FindAll(ctx context.Context, req *pb.FindAllRequest) (*
 		Products: pbProducts,
 	}, nil
 }
+
+func (h *ProductHandler) DecreaseStock(ctx context.Context, req *pb.DecreaseStockRequest) (*pb.DecreaseStockResponse, error) {
+	_, err := h.service.DecreaseStock(ctx, req.Id, req.OrderID, req.Quantity)
+
+	if err != nil {
+		return &pb.DecreaseStockResponse{
+			Status: http.StatusBadGateway,
+			Error:  err.Error(),
+		}, nil
+	}
+
+	return &pb.DecreaseStockResponse{
+		Status: http.StatusOK,
+	}, nil
+}
