@@ -121,8 +121,8 @@ func (h *AuthHandler) AdminLogin(ctx context.Context, req *pb.AdminLoginRequest)
 	}, nil
 }
 
-func (h *AuthHandler) ValidateUser(ctx context.Context, req *pb.ValidateRequest) (*pb.ValidateResponse, error) {
-	claims, err := utils.Validate(req.Token)
+func (h *AuthHandler) Validate(ctx context.Context, req *pb.ValidateRequest) (*pb.ValidateResponse, error) {
+	claims, err := utils.ValidateToken(req.Token)
 
 	if err != nil {
 		return &pb.ValidateResponse{

@@ -1,10 +1,16 @@
 run-all:
-	cd api-gateaway && make run-server &
-	cd auth && make run-server &
+	cd api-gateaway && make server &
+	cd auth && make server &
 	cd product && make server &
+	cd order && make server &
+
+run-services:
+	cd auth && make server &
+	cd product && make server &
+	cd order && make server &
 
 kill-ports:
-	@for port in 8000 50051 50052 50053; do \
+	@for port in 50051 50052 50053; do \
 		pid=$$(lsof -t -i :$$port); \
 		if [ -n "$$pid" ]; then \
 			echo "Killing process on port $$port (PID: $$pid)"; \

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package order;
+
+option go_package = "./internal/order/pb";
+
+service OrderService {
+    rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
+}
+
+message CreateOrderRequest {
+    int64 productID = 1;
+    int64 quantity = 2;
+    int64 userID = 3;
+}
+
+message CreateOrderResponse {
+    int64 status = 1;
+    string error = 2;
+    int64 id = 3;
+}

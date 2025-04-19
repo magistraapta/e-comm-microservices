@@ -18,30 +18,29 @@ func NewAuthMiddleware(client *AuthClient) AuthMiddleware {
 }
 
 func (s *AuthMiddleware) ValidateToken(ctx *gin.Context) {
-	authorization := ctx.Request.Header.Get("Authorization")
-
-	if authorization == "" {
-		ctx.AbortWithStatus(http.StatusUnauthorized)
+	authorization, err := ctx.Cookie("Authorization")
+	if err != nil || authorization == "" {
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Missing Authorization cookie"})
 		return
 	}
 
-	token := strings.Split(authorization, "Bearer ")
+	// No need to split or trim Bearer
+	token := strings.TrimSpace(authorization)
 
-	if len(token) < 2 {
-		ctx.AbortWithStatus(http.StatusUnauthorized)
+	if token == "" {
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Token is empty"})
 		return
 	}
 
 	res, err := s.client.Client.Validate(context.Background(), &pb.ValidateRequest{
-		Token: token[1],
+		Token: token,
 	})
 
 	if err != nil || res.Status != http.StatusOK {
-		ctx.AbortWithStatus(http.StatusUnauthorized)
+		ctx.AbortWithError(http.StatusUnauthorized, err)
 		return
 	}
 
-	ctx.Set("userID", res.UserID)
-
+	ctx.Set("userId", res.UserID)
 	ctx.Next()
 }

@@ -62,6 +62,8 @@ func (h *AuthHandler) Login(ctx *gin.Context) {
 		return
 	}
 
+	ctx.SetCookie("Authorization", res.Token, 3600*24*30, "", "", false, true)
+
 	ctx.JSON(http.StatusOK, &res)
 }
 
