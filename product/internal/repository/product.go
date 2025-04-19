@@ -59,3 +59,45 @@ func (r *ProductRepository) FindAll(ctx context.Context) ([]model.Product, error
 	return products, nil
 }
 
+func (r *ProductRepository) DecreaseStock(ctx context.Context, productID int64, orderID int64, quantity int64) (*model.Product, error) {
+	var product model.Product
+
+	// 1. Find product by ID
+	if err := r.db.WithContext(ctx).First(&product, productID).Error; err != nil {
+		return nil, err
+	}
+
+	// 2. Check if stock decrease log already exists
+	var existingLog model.StockDecreaseLog
+	err := r.db.WithContext(ctx).Where("order_id = ?", orderID).First(&existingLog).Error
+	if err == nil {
+		// Log already exists, don't decrease stock again
+		return nil, errors.New("stock has already been decreased for this order")
+	}
+	if !errors.Is(err, gorm.ErrRecordNotFound) {
+		// Actual DB error
+		return nil, err
+	}
+
+	// 3. Make sure stock is not zero or negative
+	if product.Stock <= 0 {
+		return nil, errors.New("not enough stock")
+	}
+
+	// 4. Decrease stock
+	product.Stock -= quantity
+	if err := r.db.WithContext(ctx).Save(&product).Error; err != nil {
+		return nil, err
+	}
+
+	// 5. Create stock decrease log
+	log := model.StockDecreaseLog{
+		OrderID:      orderID,
+		ProductRefer: productID,
+	}
+	if err := r.db.WithContext(ctx).Create(&log).Error; err != nil {
+		return nil, err
+	}
+
+	return &product, nil
+}
