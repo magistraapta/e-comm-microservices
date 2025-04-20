@@ -1,0 +1,81 @@
+version: "3.9"
+
+services:
+  api-gateaway:
+    image: magistra/ecom-api-gateaway
+    environment:
+      - PORT=8000
+      - AUTH_SERVICE=auth-service:50051
+      - PRODUCT_SERVICE=product-service:50053
+      - ORDER_SERVICE=order-service:50052
+    ports:
+      - "8000:8000"
+    depends_on:
+      - auth-service
+      - product-service
+      - order-service
+    restart: always
+
+  auth-service:
+    image: magistra/ecom-auth-service
+    ports:
+      - "50051:50051"
+    environment:
+      - PORT=50051
+      - DATABASE_CONFIG=postgres://postgres:postgres@auth-db:5432/auth-service
+      - SECRET_KEY=33hejjnubueebf3933iwubufeb
+    depends_on:
+      - auth-db
+    restart: always
+
+  product-service:
+    image: magistra/ecom-product-service
+    ports:
+      - "50053:50053"
+    environment:
+      - PORT=50053
+      - DATABASE_CONFIG=postgres://postgres:postgres@product-db:5432/product-service
+    depends_on:
+      - product-db
+    restart: always
+
+  order-service:
+    image: magistra/ecom-order-service
+    ports:
+      - "50052:50052"
+    environment:
+      - PORT=50052
+      - DATABASE_CONFIG=postgres://postgres:postgres@order-db:5432/order-service
+    depends_on:
+      - order-db
+    restart: always
+
+  auth-db:
+    image: postgres:latest
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=auth-service
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: always
+
+  product-db:
+    image: postgres:latest
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_DB=product-service
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: always
+
+  order-db:
+    image: postgres:latest
+    ports:
+      - "5435:5432"
+    environment:
+      - POSTGRES_DB=order-service
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: always

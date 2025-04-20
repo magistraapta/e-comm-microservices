@@ -1,6 +1,6 @@
 module order
 
-go 1.24.0
+go 1.24
 
 require (
 	github.com/jackc/pgpassfile v1.0.0 // indirect

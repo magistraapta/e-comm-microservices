@@ -19,3 +19,18 @@ kill-ports:
 			echo "No process found on port $$port"; \
 		fi \
 	done
+
+docker-build:
+	cd api-gateaway && docker build -t magistra/ecom-api-gateaway .
+	cd auth && docker build -t magistra/ecom-auth-service .
+	cd product && docker build -t magistra/ecom-product-service .
+	cd order && docker build -t magistra/ecom-order-service .
+
+docker-push:
+	cd api-gateaway && docker push magistra/ecom-api-gateaway
+	cd auth && docker push magistra/ecom-auth-service
+	cd product && docker push magistra/ecom-product-service
+	cd order && docker push magistra/ecom-order-service
+
+run:
+	sudo docker compose up
