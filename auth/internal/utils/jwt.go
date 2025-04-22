@@ -98,31 +98,6 @@ func GenerateAdminToken(admin *model.Admin) (string, error) {
 	return tokenString, nil
 }
 
-// func Validate(signedToken string) (*JwtClaims, error) {
-// 	secret := os.Getenv("SECRET_KEY")
-// 	if secret == "" {
-// 		return nil, fmt.Errorf("SECRET_KEY environment variable not set")
-// 	}
-
-// 	token, err := jwt.ParseWithClaims(signedToken, &JwtClaims{}, func(t *jwt.Token) (interface{}, error) {
-// 		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
-// 			return nil, errors.New("unexpected signing method")
-// 		}
-// 		return []byte(secret), nil
-// 	})
-
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	claims, ok := token.Claims.(*JwtClaims)
-// 	if !ok || !token.Valid {
-// 		return nil, errors.New("invalid token")
-// 	}
-
-// 	return claims, nil
-// }
-
 func ValidateToken(signedToken string) (*JwtClaims, error) {
 	secret := os.Getenv("SECRET_KEY")
 
