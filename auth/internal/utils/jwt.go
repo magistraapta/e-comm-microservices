@@ -10,29 +10,6 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-// var jwtSecretKey = []byte("nsusbfuwebfefmeinfe") // Ideally from env/config
-
-// func GenerateToken(user model.User) (string, error) {
-// 	// Create JWT claims
-// 	claims := jwt.MapClaims{
-// 		"user_id": user.Id,
-// 		"email":   user.Email,
-// 		"exp":     time.Now().Add(time.Hour * 72).Unix(), // token expires in 72 hours
-// 		"iat":     time.Now().Unix(),
-// 	}
-
-// 	// Create the token
-// 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-// 	// Sign the token with your secret key
-// 	signedToken, err := token.SignedString(jwtSecretKey)
-// 	if err != nil {
-// 		return "", err
-// 	}
-
-// 	return signedToken, nil
-// }
-
 type JwtClaims struct {
 	Id       int64
 	Username string
