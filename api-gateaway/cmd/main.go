@@ -27,7 +27,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to connect to product service: %v", err)
 	}
-	defer productConn.Close()
+	defer orderConn.Close()
 
 	authClient := auth.NewAuthServiceClient(authConn)
 	authHandler := auth.NewAuthHandler(authClient)
